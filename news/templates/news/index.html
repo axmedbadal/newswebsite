@@ -1,0 +1,27 @@
+<!-- news/templates/news/index.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Latest News Headlines</h1>
+    <p class="lead">Stay informed with the latest updates.</p>
+    <!-- Add featured articles or news categories here -->
+  </div>
+
+  <div class="row">
+    <!-- Loop through articles and display summaries -->
+    {% for article in articles %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text">{{ article.content|truncatechars:100 }}</p>
+            <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

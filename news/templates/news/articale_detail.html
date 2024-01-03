@@ -1,0 +1,14 @@
+<!-- news/templates/news/article_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+    <div class="card-body">
+      <h1 class="card-title">{{ article.title }}</h1>
+      <p class="card-text">{{ article.content }}</p>
+      <!-- Add comments and likes functionality here -->
+    </div>
+  </div>
+{% endblock %}
