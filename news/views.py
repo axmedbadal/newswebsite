@@ -1,6 +1,7 @@
 # news/views.py
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate,login as auth_login
 from .models import Article
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -43,16 +44,16 @@ def add_comment(request, article_id):
 
     if request.method == 'POST':
         text = request.POST.get('text', '')
-        Comment.objects.create(article=article, user=request.user, text=text)
+        add_comment.objects.create(article=article, user=request.user, text=text)
 
     return redirect('article_detail', article_id=article_id)
 
 @login_required
-def add_like(request, article_id):
+def like(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
 
     if request.method == 'POST':
-        Like.objects.create(article=article, user=request.user)
+        like.objects.create(article=article, user=request.user)
 
     return redirect('article_detail', article_id=article_id)
 
@@ -64,7 +65,7 @@ def user_login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user:
-                login(request, user)
+                user_login(request, user)
                 return redirect('index')
     else:
         form = AuthenticationForm()
