@@ -72,7 +72,6 @@ def user_login(request):
 
     return render(request, 'news/user_login.html', {'form': form})
 
-@login_required
 def user_logout(request):
     logout(request)
     return redirect('index')
